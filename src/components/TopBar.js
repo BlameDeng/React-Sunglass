@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import {Link} from 'react-router-dom'
 import { Icon } from 'antd'
 
 class TopBar extends Component {
@@ -6,14 +7,14 @@ class TopBar extends Component {
     return (
       <div className="top-bar">
         <div className="top-bar-inner">
-          <div className="user-info">
+          <Link className="user-info" to="/user">
             <Icon type="user" />
             <span className="username">username</span>
-          </div>
-          <div className="top-bar-cart">
+          </Link>
+          <Link className="top-bar-cart" to="/cart">
             <Icon type="shopping-cart" />
             <span className="badge">22</span>
-          </div>
+          </Link>
         </div>
       </div>
     )

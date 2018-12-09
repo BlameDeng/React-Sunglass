@@ -27,49 +27,58 @@
             background: #383838;
             border-top-right-radius: 2px;
             border-top-left-radius: 2px;
-            >i {
-                >svg {
-                    width: 20px;
-                    height: 20px;
+            >a {
+                color: rgba(255, 255, 255, 0.85);
+                >i {
+                    >svg {
+                        width: 20px;
+                        height: 20px;
+                    }
                 }
             }
+
             &:hover {
                 background: #ffaa01;
             }
         }
-        >.cart {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+        >a{
+            display: block;
             width: 100%;
-            cursor: pointer;
-            padding: 10px 0;
-            background: #383838;
-            border-bottom-right-radius: 2px;
-            border-bottom-left-radius: 2px;
-            >i {
-                >svg {
-                    width: 20px;
-                    height: 20px;
+            color: rgba(255, 255, 255, 0.85);
+            >.cart {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                cursor: pointer;
+                padding: 10px 0;
+                background: #383838;
+                border-bottom-right-radius: 2px;
+                border-bottom-left-radius: 2px;
+                >i {
+                    >svg {
+                        width: 20px;
+                        height: 20px;
+                    }
                 }
-            }
-            >span {
-                margin-top: 10px;
-                user-select: none;
-                &.count {
-                    display: inline-flex;
-                    font-size: 12px;
-                    width: 24px;
-                    height: 20px;
-                    justify-content: center;
-                    align-items: center;
-                    background: #f10215;
-                    border-radius: 8px;
+                >span {
+                    margin-top: 10px;
+                    user-select: none;
+                    &.count {
+                        display: inline-flex;
+                        font-size: 12px;
+                        width: 24px;
+                        height: 20px;
+                        justify-content: center;
+                        align-items: center;
+                        background: #f10215;
+                        border-radius: 8px;
+                    }
                 }
-            }
-            &:hover {
-                background: #ffaa01;
+                &:hover {
+                    background: #ffaa01;
+                }
             }
         }
     }

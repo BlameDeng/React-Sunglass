@@ -1,5 +1,5 @@
 .new-arrival {
-    width: 70%;
+    max-width: calc(1200px * 0.7);
     min-width: 300px;
     margin: -50px auto 0;
     background: #fff;
@@ -30,6 +30,13 @@
         justify-content: space-between;
         align-items: center;
         cursor: pointer;
+        >.spin-wrapper {
+            width: 100%;
+            padding: 100px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
         >.product {
             width: 33%;
             display: flex;

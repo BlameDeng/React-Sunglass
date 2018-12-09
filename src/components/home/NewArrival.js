@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Spin } from 'antd'
 
 class NewArrival extends Component {
   constructor(props) {
@@ -7,23 +8,29 @@ class NewArrival extends Component {
   }
 
   componentDidMount() {
-    this.props.getNewArrival()
+    !this.props.newArrival.data && this.props.getNewArrival()
   }
 
   render() {
-    const data = this.props.newArrival.data
-
+    const { isFetching, data } = this.props.newArrival
     return (
       <div className="new-arrival">
-        <h1 className="title">New Arrival</h1>
+        <h1 className="title"> New Arrival </h1>
         <div className="product-wrapper">
+          {isFetching ? (
+            <div className="spin-wrapper">
+              <Spin size="large" />
+            </div>
+          ) : (
+            ''
+          )}
           {data && data.length
             ? data.map(product => (
                 <div className="product" key={product.id}>
-                  <h2 className="name">{product.name}</h2>
+                  <h2 className="name"> {product.name} </h2>
                   <img src={product.sub_image} alt="product" />
-                  <span className="price">￥{product.discount}</span>
-                  <div className="add">添加到购物车</div>
+                  <span className="price"> ￥{product.discount} </span>
+                  <div className="add"> 添加到购物车 </div>
                 </div>
               ))
             : ''}

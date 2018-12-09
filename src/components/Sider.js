@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 import { Icon } from 'antd'
 import { smoothScroll } from '../utils/smoothScroll'
 
@@ -8,19 +10,26 @@ class Sider extends Component {
   }
 
   render() {
+    const cart = this.props.cart
     return (
       <div className="sider">
         <div className="link">
           <div className="user">
-            <Icon type="user" />
+            <Link to="/user">
+              <Icon type="user" />
+            </Link>
           </div>
-          <div className="cart">
-            <Icon type="shopping-cart" />
-            <span>
-              购<br />物<br />车
-            </span>
-            <span className="count">{22}</span>
-          </div>
+          <Link to="/cart">
+            <div className="cart">
+              <Icon type="shopping-cart" />
+              <span>
+                购 <br /> 物 <br /> 车
+              </span>
+              <span className="count">
+                {cart && cart.products ? cart.products.length : 0}
+              </span>
+            </div>
+          </Link>
         </div>
         <div className="to-top" onClick={this.handleScrollToTop.bind(this)}>
           TOP
@@ -30,4 +39,9 @@ class Sider extends Component {
   }
 }
 
-export default Sider
+const mapStateToProps = state => ({
+  cart: state.cart,
+  user: state.user
+})
+
+export default connect(mapStateToProps)(Sider)

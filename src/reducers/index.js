@@ -1,6 +1,12 @@
 import { combineReducers } from 'redux'
 import newArrival from './newArrival'
+import allProducts from './allProducts'
+import user from './user'
+import cart from './cart'
 
 export default combineReducers({
-    newArrival
+    newArrival,
+    allProducts,
+    user,
+    cart
 })

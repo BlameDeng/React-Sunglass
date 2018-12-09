@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { getNewArrival } from '../actions'
+import { getNewArrival, getAllProducts } from '../actions'
 import HomeNavBar from '../components/home/HomeNavBar'
 import HomeIndex from '../components/home/HomeIndex'
+import HomeCategory from '../components/home/HomeCategory'
 
 class Home extends Component {
   constructor(props) {
@@ -23,18 +24,24 @@ class Home extends Component {
           category={this.state.category}
           changeCategory={this.handleChangeCategory.bind(this)}
         />
-        <HomeIndex {...this.props} />
+        {this.state.category === 'index' ? (
+          <HomeIndex {...this.props} />
+        ) : (
+          <HomeCategory {...this.props} category={this.state.category} />
+        )}
       </div>
     )
   }
 }
 
 const mapStateToProps = state => ({
-  newArrival: state.newArrival
+  newArrival: state.newArrival,
+  allProducts: state.allProducts
 })
 
 const mapDispatchToProps = dispatch => ({
-  getNewArrival: () => dispatch(getNewArrival())
+  getNewArrival: () => dispatch(getNewArrival()),
+  getAllProducts: () => dispatch(getAllProducts())
 })
 
 export default connect(

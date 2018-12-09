@@ -6,7 +6,13 @@ const initState = {
     newArrival: {
         isFetching: false,
         data: null
-    }
+    },
+    allProducts: {
+        isFetching: false,
+        data: null
+    },
+    user:null,
+    cart:null
 }
 
 export const initStore = () => createStore(reducers, initState, applyMiddleware(ReduxThunk))
