@@ -40,3 +40,7 @@ export const updateReceiver = (name, phone, address, detail) => {
 export const getRecommend = (gender) => {
     return request({ url: URL.recommend, data: { gender } })
 }
+
+export const addToCart = ({id,count}) => {
+    return request({ url: URL.addToCart, method: 'PATCH', data: { id,count } })
+}

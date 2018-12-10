@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { getNewArrival, getAllProducts } from '../actions'
+import { getNewArrival, getAllProducts,setCart } from '../actions'
 import HomeNavBar from '../components/home/HomeNavBar'
 import HomeIndex from '../components/home/HomeIndex'
 import HomeCategory from '../components/home/HomeCategory'
@@ -36,12 +36,14 @@ class Home extends Component {
 
 const mapStateToProps = state => ({
   newArrival: state.newArrival,
-  allProducts: state.allProducts
+  allProducts: state.allProducts,
+  cart: state.cart
 })
 
 const mapDispatchToProps = dispatch => ({
   getNewArrival: () => dispatch(getNewArrival()),
-  getAllProducts: () => dispatch(getAllProducts())
+  getAllProducts: () => dispatch(getAllProducts()),
+  setCart:cart=>dispatch(setCart(cart))
 })
 
 export default connect(

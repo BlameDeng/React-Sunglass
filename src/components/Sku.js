@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import * as api from '../api'
 import { Icon } from 'antd'
 
 class Sku extends Component {
@@ -6,7 +7,8 @@ class Sku extends Component {
     super(props)
     this.state = {
       imgTab: 'main',
-      imgHeight: 0
+      imgHeight: 0,
+      isAdding: false
     }
   }
 
@@ -16,10 +18,62 @@ class Sku extends Component {
     this.setState({ imgTab })
   }
 
+  handleAddToCart(id) {
+    if (this.state.isAdding) {
+      return
+    }
+    if (
+      this.props.cart &&
+      this.props.cart.products &&
+      this.props.cart.products.length
+    ) {
+      if (this.props.cart.products.find(product => product.id === id)) {
+        return
+      } else {
+        this.setState({
+          isAdding: true
+        })
+        api
+          .addToCart({ id, count: 1 })
+          .then(res => {
+            this.props.setCart(res.data)
+            this.setState({
+              isAdding: false
+            })
+          })
+          .catch(err => {
+            this.setState({
+              isAdding: false
+            })
+          })
+      }
+    } else {
+      this.setState({
+        isAdding: true
+      })
+      api
+        .addToCart({ id, count: 1 })
+        .then(res => {
+          this.props.setCart(res.data)
+          this.setState({
+            isAdding: false
+          })
+        })
+        .catch(err => {
+          this.setState({
+            isAdding: false
+          })
+        })
+    }
+  }
+
   render() {
     const { product } = this.props
     return (
-      <div className="sku" style={{margin:`0 ${Math.floor(this.props.margin)}px`}}>
+      <div
+        className="sku"
+        style={{ margin: `0 ${Math.floor(this.props.margin)}px` }}
+      >
         <div className="show-img">
           {this.state.imgTab === 'main' ? (
             <img src={product.main_image} alt="main" ref={this.mainImg} />
@@ -67,7 +121,11 @@ class Sku extends Component {
             <Icon type="file-search" />
             查看详情
           </div>
-          <div className="add-to-cart" role="button">
+          <div
+            className="add-to-cart"
+            role="button"
+            onClick={() => this.handleAddToCart(product.id)}
+          >
             <Icon type="shopping-cart" />
             加入购物车
           </div>

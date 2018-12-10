@@ -11,7 +11,7 @@ import {
 } from '../actions'
 import UserInfo from '../components/user/UserInfo'
 
-class UserContainer extends Component {
+class User extends Component {
   constructor(props) {
     super(props)
     this.state = {}
@@ -50,4 +50,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(UserContainer)
+)(User)

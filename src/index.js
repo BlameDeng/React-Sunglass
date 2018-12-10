@@ -20,6 +20,8 @@ import './style/UserNav.scss'
 import './style/UserProfile.scss'
 import './style/UserAccount.scss'
 import './style/Recommend.scss'
+import './style/Cart.scss'
+import './style/MyCart.scss'
 import * as serviceWorker from './serviceWorker'
 import { initStore } from './store'
 

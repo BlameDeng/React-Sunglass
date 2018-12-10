@@ -61,12 +61,14 @@ class HomeCategory extends Component {
   }
 
   render() {
+    console.log(this.props);
+    
     const products = this.state.products
     return (
       <div className="home-category" ref={this.el}>
         {products && products.length
           ? products.map(product => (
-              <Sku
+              <Sku {...this.props}
                 product={product}
                 key={product.id}
                 margin={this.state.margin}

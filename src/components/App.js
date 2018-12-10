@@ -6,6 +6,7 @@ import Footer from './Footer'
 import Sider from './Sider'
 import Home from '../containers/Home'
 import User from '../containers/User'
+import Cart from '../containers/Cart'
 
 const HomeContainer = Loadable({
   loader: () => import('../containers/Home'),
@@ -17,6 +18,11 @@ const UserContainer = Loadable({
   loading: User
 })
 
+const CartContainer = Loadable({
+  loader: () => import('../containers/Cart'),
+  loading: Cart
+})
+
 class App extends Component {
   render() {
     return (
@@ -25,6 +31,7 @@ class App extends Component {
           <TopBar />
           <Route exact path="/" component={HomeContainer} />
           <Route path="/user" component={UserContainer} />
+          <Route path="/cart" component={CartContainer} />
           <Sider />
           <Footer />
         </div>
