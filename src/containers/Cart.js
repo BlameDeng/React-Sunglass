@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Header from '../components/Header'
 import MyCart from '../components/cart/MyCart'
-import { setCart } from '../actions'
+import { setCart, setReceiver, updateReceiver } from '../actions'
 import Payment from '../components/cart/Payment'
 
 class Cart extends Component {
@@ -51,7 +51,12 @@ class Cart extends Component {
             ''
           )}
           {tab === 'payment' ? (
-            <Payment {...this.props} selectedIds={selectedIds} total={total} handleChangeTab={this.handleChangeTab.bind(this)} />
+            <Payment
+              {...this.props}
+              selectedIds={selectedIds}
+              total={total}
+              handleChangeTab={this.handleChangeTab.bind(this)}
+            />
           ) : (
             ''
           )}
@@ -63,11 +68,14 @@ class Cart extends Component {
 }
 
 const mapStateToProps = state => ({
-  cart: state.cart
+  cart: state.cart,
+  receiver: state.receiver
 })
 
 const mapDispatchToProps = dispatch => ({
-  setCart: cart => dispatch(setCart(cart))
+  setCart: cart => dispatch(setCart(cart)),
+  setReceiver: receiver => dispatch(setReceiver(receiver)),
+  updateReceiver: receiver => dispatch(updateReceiver(receiver))
 })
 
 export default connect(

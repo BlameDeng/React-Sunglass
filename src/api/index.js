@@ -37,14 +37,18 @@ export const updateReceiver = (name, phone, address, detail) => {
     return request({ url: URL.updateReceiver, method: 'PATCH', data: { name, phone, address, detail } })
 }
 
-export const getRecommend = (gender) => {
+export const getRecommend = gender => {
     return request({ url: URL.recommend, data: { gender } })
 }
 
-export const addToCart = (data) => {
+export const addToCart = data => {
     return request({ url: URL.addToCart, method: 'PATCH', data })
 }
 
-export const removeFromCart = (data) => {
+export const removeFromCart = data => {
     return request({ url: URL.removeFromCart, method: 'PATCH', data })
+}
+
+export const pay = data => {
+    return request({ url: URL.pay, method: 'POST', data })
 }

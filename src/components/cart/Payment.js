@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import PayItem from './PayItem'
 import NewAddress from './NewAddress'
+import * as api from '../../api'
+import { Input, message } from 'antd'
 
 class Payment extends Component {
   constructor(props) {
@@ -8,34 +10,107 @@ class Payment extends Component {
     this.state = {
       newAddressVisible: false,
       checkPswVisible: false,
-      products: null
+      products: null,
+      password: '',
+      isPaying: false
     }
   }
 
   componentDidMount() {
-    const { selectedIds, cart } = this.props
+    const { selectedIds, cart, receiver, setReceiver } = this.props
     const products = cart.products.filter(
       product => selectedIds.indexOf(product.id) > -1
     )
     this.setState({ products })
+    if (!receiver) {
+      api
+        .getReceiver()
+        .then(res => {
+          setReceiver(res.data)
+        })
+        .catch(() => {})
+    }
+  }
+
+  handleClickBtn(type) {
+    if (type === 'address') {
+      this.setState({
+        newAddressVisible: !this.state.newAddressVisible
+      })
+    } else if (type === 'checkPsw') {
+      this.setState({
+        checkPswVisible: !this.state.checkPswVisible
+      })
+    }
+  }
+
+  handlePswChange(e) {
+    this.setState({
+      password: e.target.value
+    })
+  }
+
+  //验证密码后支付
+  handleCheckPswSubmit() {
+    if (this.isPaying) {
+      return
+    }
+    const pattern = /.{6,18}/
+    const { password, products } = this.state
+    if (!pattern.test(password)) {
+      message.info('密码为6至18个字符', 2)
+      return
+    }
+    this.setState({
+      isPaying: true
+    })
+    api
+      .pay({ products, password })
+      .then(res => {
+        console.log(res)
+        message.success('订单支付成功，将尽快为您发货', 2)
+        this.setState({
+          isPaying: false,
+          checkPswVisible: false,
+          password: ''
+        })
+      })
+      .catch(err => {
+        message.error(err.msg, 2)
+        this.setState({
+          isPaying: false,
+          password: ''
+        })
+      })
   }
 
   render() {
     const { newAddressVisible, checkPswVisible, products } = this.state
-    const { total } = this.props
+    const { total, receiver } = this.props
     return (
       <div className="payment">
         <div className="title">确认收货地址</div>
         <div className="address">
           <div className="detail-address">
             <p>默认收货地址：</p>
-            <p>{`（收）`}</p>
-            <p>{``}</p>
+            <p>{`${receiver && receiver.name + ' ' + receiver.phone}（收）`}</p>
+            <p>{receiver && receiver.address + receiver.detail}</p>
           </div>
-          <div className="btn" role="button">
+          <div
+            className="btn"
+            role="button"
+            onClick={() => this.handleClickBtn('address')}
+          >
             使用新地址
           </div>
-          {newAddressVisible ? <NewAddress /> : ''}
+          {newAddressVisible ? (
+            <NewAddress
+              closeNewAddress={this.handleClickBtn.bind(this)}
+              {...this.props}
+            />
+          ) : (
+            ''
+          )}
         </div>
         <div className="title">确认订单信息</div>
         <ul className="title-bar">
@@ -70,32 +145,52 @@ class Payment extends Component {
             <div className="address">
               <span className="label">寄送至：</span>
               <span className="detail">
-                {''} ${''}`}}
+                {receiver && receiver.address + receiver.detail}
               </span>
             </div>
             <div className="contract">
               <span className="label">收货人：</span>
-              <span>
-                {''} ${''}`}}
-              </span>
+              <span>{receiver && receiver.name + ' ' + receiver.phone}</span>
             </div>
           </div>
           <div className="btns">
             <div className="return">
-              <x-icon name="back" className="icon" />
-              <span onClick={()=>this.props.handleChangeTab('cart')}>返回购物车</span>
+              <span onClick={() => this.props.handleChangeTab('cart')}>
+                返回购物车
+              </span>
             </div>
-            <div className="confirm">提交并支付</div>
+            <div
+              className="confirm"
+              onClick={() => this.handleClickBtn('checkPsw')}
+            >
+              提交并支付
+            </div>
           </div>
         </div>
         {checkPswVisible ? (
           <div className="check-password">
             <div className="inner">
               <h3>支付订单需要验证登录密码</h3>
-              <sun-input type="password" />
+              <div className="input-wrapper">
+                <Input
+                  type="password"
+                  value={this.state.password}
+                  onChange={this.handlePswChange.bind(this)}
+                />
+              </div>
               <div className="btns">
-                <div className="cancle">取消</div>
-                <div className="confirm">确定</div>
+                <div
+                  className="cancle"
+                  onClick={() => this.setState({ checkPswVisible: false })}
+                >
+                  取消
+                </div>
+                <div
+                  className="confirm"
+                  onClick={this.handleCheckPswSubmit.bind(this)}
+                >
+                  确定
+                </div>
               </div>
             </div>
           </div>
