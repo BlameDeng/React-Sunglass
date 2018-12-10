@@ -41,6 +41,10 @@ export const getRecommend = (gender) => {
     return request({ url: URL.recommend, data: { gender } })
 }
 
-export const addToCart = ({id,count}) => {
-    return request({ url: URL.addToCart, method: 'PATCH', data: { id,count } })
+export const addToCart = (data) => {
+    return request({ url: URL.addToCart, method: 'PATCH', data })
+}
+
+export const removeFromCart = (data) => {
+    return request({ url: URL.removeFromCart, method: 'PATCH', data })
 }

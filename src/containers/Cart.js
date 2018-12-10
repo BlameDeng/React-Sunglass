@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Header from '../components/Header'
 import MyCart from '../components/cart/MyCart'
+import {setCart} from '../actions'
 
 class Cart extends Component {
   constructor(props) {
@@ -32,4 +33,8 @@ const mapStateToProps = state => ({
   cart: state.cart
 })
 
-export default connect(mapStateToProps)(Cart)
+const mapDispatchToProps=dispatch=>({
+    setCart:cart=>dispatch(setCart(cart))
+})
+
+export default connect(mapStateToProps,mapDispatchToProps)(Cart)
