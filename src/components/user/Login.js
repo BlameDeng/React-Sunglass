@@ -106,6 +106,7 @@ class Login extends Component {
             </div>
             <div className="password">
               <Input
+              type="password"
                 placeholder="请输入密码"
                 prefix={
                   <Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />

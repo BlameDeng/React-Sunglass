@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Login from '../components/user/Login'
 import { login, setCart } from '../actions'
+import UserInfo from '../components/user/UserInfo'
 
 class UserContainer extends Component {
   constructor(props) {
@@ -11,7 +12,15 @@ class UserContainer extends Component {
 
   render() {
     const user = this.props.user
-    return <>{user ? '' : <Login {...this.props} />}</>
+    return (
+      <>
+        {user ? (
+          <UserInfo {...this.props}> </UserInfo>
+        ) : (
+          <Login {...this.props} />
+        )}
+      </>
+    )
   }
 }
 
