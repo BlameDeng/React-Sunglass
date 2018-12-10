@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Header from '../Header'
 import UserNav from './UserNav'
+import UserProfile from './UserProfile'
 
 class UserInfo extends Component {
   constructor(props) {
@@ -12,7 +13,8 @@ class UserInfo extends Component {
     return (
       <div className="user-info">
         <Header />
-        <UserNav />
+        <UserNav {...this.props} />
+        <UserProfile {...this.props} />
       </div>
     )
   }

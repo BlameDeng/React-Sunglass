@@ -1,6 +1,9 @@
-const login = (user) => ({
+export const login = (user) => ({
     type: 'SET_USER',
     user
 })
 
-export default login
+export const changeProfile = (nickyname, gender) => ({
+    type: 'CHANGE_PROFILE',
+    user: { nickyname, gender }
+})

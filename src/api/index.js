@@ -16,3 +16,11 @@ export const login = (username, password) => {
 export const logout = () => {
     return request({ url: URL.logout })
 }
+
+export const check = () => {
+    return request({ url: URL.check })
+}
+
+export const changeProfile = (nickyname, gender) => {
+    return request({ url: URL.changeProfile, method: 'PATCH', data: { nickyname, gender } })
+}
