@@ -104,8 +104,17 @@ class MyCart extends Component {
     })
   }
 
+  handleOnPay() {
+    const { selectedIds, total } = this.state
+    if (!selectedIds || !selectedIds.length) {
+      return
+    }
+    this.props.handleChangeTab('payment', selectedIds, total)
+  }
+
   render() {
     const { cart } = this.props
+    const { selectedIds } = this.state
     return (
       <div className="my-cart">
         <div className="title">我的购物车</div>
@@ -157,7 +166,14 @@ class MyCart extends Component {
           <li className="total">
             合计<span className="number">{this.state.total.toFixed(2)}</span>
           </li>
-          <li className="pay">结 算</li>
+          <li
+            className={`pay ${
+              !selectedIds || !selectedIds.length ? 'disabled' : ''
+            }`}
+            onClick={this.handleOnPay.bind(this)}
+          >
+            结 算
+          </li>
         </ul>
       </div>
     )

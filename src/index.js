@@ -22,6 +22,7 @@ import './style/UserAccount.scss'
 import './style/Recommend.scss'
 import './style/Cart.scss'
 import './style/MyCart.scss'
+import './style/Payment.scss'
 import * as serviceWorker from './serviceWorker'
 import { initStore } from './store'
 
