@@ -65,6 +65,10 @@
                 >span {
                     margin-top: 10px;
                     user-select: none;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    flex-direction: column;
                     &.count {
                         display: inline-flex;
                         font-size: 12px;

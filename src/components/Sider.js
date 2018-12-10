@@ -23,7 +23,9 @@ class Sider extends Component {
             <div className="cart">
               <Icon type="shopping-cart" />
               <span>
-                购 <br /> 物 <br /> 车
+                <span>购</span>
+                <span>物</span>
+                <span>车</span>
               </span>
               <span className="count">
                 {cart && cart.products ? cart.products.length : 0}

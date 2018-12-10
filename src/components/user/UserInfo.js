@@ -3,6 +3,7 @@ import Header from '../Header'
 import UserNav from './UserNav'
 import UserProfile from './UserProfile'
 import UserAccount from './UserAccount'
+import Recommend from './Recommend'
 
 class UserInfo extends Component {
   constructor(props) {
@@ -32,6 +33,7 @@ class UserInfo extends Component {
         ) : (
           <UserAccount {...this.props} />
         )}
+        <Recommend {...this.props}> </Recommend>
       </div>
     )
   }

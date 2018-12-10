@@ -139,6 +139,20 @@ class UserAccount extends Component {
       message.info('地址信息不能为空', 2)
       return
     }
+    const {
+      name: propName,
+      phone: propPhone,
+      address: propAddress,
+      detail: propDetail
+    } = this.props.receiver
+    if (
+      name === propName &&
+      phone === propPhone &&
+      address === propAddress &&
+      detail === propDetail
+    ) {
+      return
+    }
     this.setState({
       isChanging: true
     })
@@ -240,7 +254,7 @@ class UserAccount extends Component {
               <Input
                 placeholder="详细地址，如：门牌、街道、村镇"
                 value={detail}
-                onClick={this.handleDetail.bind(this)}
+                onChange={this.handleDetail.bind(this)}
               />
             </p>
             <p>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import Sku from './Sku'
+import Sku from '../Sku'
 
 class HomeCategory extends Component {
   constructor(props) {

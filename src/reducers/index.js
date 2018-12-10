@@ -4,11 +4,13 @@ import allProducts from './allProducts'
 import user from './user'
 import cart from './cart'
 import receiver from './receiver'
+import recommend from './recommend'
 
 export default combineReducers({
     newArrival,
     allProducts,
     user,
     cart,
-    receiver
+    receiver,
+    recommend
 })

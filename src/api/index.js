@@ -36,3 +36,7 @@ export const getReceiver = () => {
 export const updateReceiver = (name, phone, address, detail) => {
     return request({ url: URL.updateReceiver, method: 'PATCH', data: { name, phone, address, detail } })
 }
+
+export const getRecommend = (gender) => {
+    return request({ url: URL.recommend, data: { gender } })
+}

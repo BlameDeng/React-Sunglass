@@ -3,7 +3,7 @@ import getAllProducts from './allProducts'
 import { login, changeProfile } from './user'
 import { setCart } from './cart'
 import { setReceiver, updateReceiver } from './receiver'
-
+import { setRecommend } from './recommend'
 
 export {
     getNewArrival,
@@ -12,5 +12,6 @@ export {
     changeProfile,
     setCart,
     setReceiver,
-    updateReceiver
+    updateReceiver,
+    setRecommend
 }

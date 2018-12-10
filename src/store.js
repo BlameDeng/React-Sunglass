@@ -13,7 +13,8 @@ const initState = {
     },
     user: null,
     cart: null,
-    receiver: null
+    receiver: null,
+    recommend: null
 }
 
 export const initStore = () => createStore(reducers, initState, applyMiddleware(ReduxThunk))

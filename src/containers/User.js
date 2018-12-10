@@ -1,7 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Login from '../components/user/Login'
-import { login,changeProfile, setCart,setReceiver,updateReceiver } from '../actions'
+import {
+  login,
+  changeProfile,
+  setCart,
+  setReceiver,
+  updateReceiver,
+  setRecommend
+} from '../actions'
 import UserInfo from '../components/user/UserInfo'
 
 class UserContainer extends Component {
@@ -26,15 +33,18 @@ class UserContainer extends Component {
 
 const mapStateToProps = state => ({
   user: state.user,
-  receiver:state.receiver
+  receiver: state.receiver,
+  recommend:state.recommend
 })
 
 const mapDispatchToProps = dispatch => ({
   login: user => dispatch(login(user)),
   setCart: cart => dispatch(setCart(cart)),
-  changeProfile:(nickyname,gender)=>dispatch(changeProfile(nickyname,gender)),
-  setReceiver:receiver=>dispatch(setReceiver(receiver)),
-  updateReceiver:receiver=>dispatch(updateReceiver(receiver))
+  changeProfile: (nickyname, gender) =>
+    dispatch(changeProfile(nickyname, gender)),
+  setReceiver: receiver => dispatch(setReceiver(receiver)),
+  updateReceiver: receiver => dispatch(updateReceiver(receiver)),
+  setRecommend: recommed => dispatch(setRecommend(recommed))
 })
 
 export default connect(
