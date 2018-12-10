@@ -7,11 +7,13 @@ import { login,setCart } from '../actions'
 
 class TopBar extends Component {
   componentDidMount() {
-    api.check().then(res => {
+    api.check()
+    .then(res => {
       const {username,nickyname,gender,cart}=res.data
       this.props.login({username,nickyname,gender})
       this.props.setCart(cart)
     })
+    .catch(()=>{})
   }
 
   render() {

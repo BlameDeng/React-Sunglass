@@ -18,6 +18,7 @@ import './style/Login.scss'
 import './style/Header.scss'
 import './style/UserNav.scss'
 import './style/UserProfile.scss'
+import './style/UserAccount.scss'
 import * as serviceWorker from './serviceWorker'
 import { initStore } from './store'
 

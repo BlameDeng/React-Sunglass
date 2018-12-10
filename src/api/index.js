@@ -24,3 +24,7 @@ export const check = () => {
 export const changeProfile = (nickyname, gender) => {
     return request({ url: URL.changeProfile, method: 'PATCH', data: { nickyname, gender } })
 }
+
+export const changePassword = (username, password, newPassword) => {
+    return request({ url: URL.changePassword, method: 'PATCH', data: { username, password, newPassword } })
+}

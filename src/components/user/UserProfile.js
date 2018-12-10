@@ -91,6 +91,7 @@ class UserProfile extends Component {
             </div>
           </div>
           <div className="item">
+          <label>性别：</label>
             <RadioGroup
               value={this.state.gender}
               onChange={this.handleGenderChange.bind(this)}
