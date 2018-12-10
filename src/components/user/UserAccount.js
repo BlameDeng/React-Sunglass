@@ -10,8 +10,31 @@ class UserAccount extends Component {
       psw1: '',
       psw2: '',
       psw3: '',
-      isChanging: false
+      isChanging: false,
+      name: '',
+      phone: '',
+      address: '',
+      detail: ''
     }
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const { receiver } = nextProps
+    const { name, phone, address, detail } = prevState
+    if (receiver && !name && !phone && !address && !detail) {
+      return { ...receiver }
+    }
+    return null
+  }
+
+  componentDidMount() {
+    !this.props.receiver &&
+      api
+        .getReceiver()
+        .then(res => {
+          this.props.setReceiver(res.data)
+        })
+        .catch(err => {})
   }
 
   handleClickTab(tab) {
@@ -86,17 +109,69 @@ class UserAccount extends Component {
     })
   }
 
+  handleName(e) {
+    this.setState({
+      name: e.target.value
+    })
+  }
+
+  handlePhone(e) {
+    this.setState({
+      phone: e.target.value
+    })
+  }
+
+  handleAddress(e) {
+    this.setState({
+      address: e.target.value
+    })
+  }
+
+  handleDetail(e) {
+    this.setState({
+      detail: e.target.value
+    })
+  }
+
+  changeReceiver() {
+    const { name, phone, address, detail } = this.state
+    if (!name || !phone || !address || !detail) {
+      message.info('地址信息不能为空', 2)
+      return
+    }
+    this.setState({
+      isChanging: true
+    })
+    api
+      .updateReceiver(name, phone, address, detail)
+      .then(res => {
+        this.props.updateReceiver(res.data)
+        this.setState({
+          isChanging: false
+        })
+      })
+      .catch(err => {
+        message.error(err.msg, 2)
+        this.setState({
+          isChanging: false
+        })
+      })
+  }
+
   handleSubmit() {
     if (this.state.isChanging) {
       return
     }
     if (this.state.tab === 'password') {
       this.changePsw()
+    } else if (this.state.tab === 'address') {
+      this.changeReceiver()
     }
   }
 
   render() {
-    const { tab } = this.state
+    const { tab, name, phone, address, detail } = this.state
+    const { receiver } = this.props
     return (
       <div className="user-account">
         <div className="title-wrapper">
@@ -145,23 +220,36 @@ class UserAccount extends Component {
             <div className="wrapper">
               <p>
                 <label>收货人：</label>
-                <Input />
+                <Input value={name} onChange={this.handleName.bind(this)} />
               </p>
               <p>
                 <label>手机号码：</label>
-                <Input />
+                <Input value={phone} onChange={this.handlePhone.bind(this)} />
               </p>
             </div>
             <p>
               <label>地址信息：</label>
-              <Input placeholder="省/市/区" />
+              <Input
+                placeholder="省/市/区"
+                value={address}
+                onChange={this.handleAddress.bind(this)}
+              />
             </p>
             <p>
               <label>详细地址：</label>
-              <Input placeholder="详细地址，如：门牌、街道、村镇" />
+              <Input
+                placeholder="详细地址，如：门牌、街道、村镇"
+                value={detail}
+                onClick={this.handleDetail.bind(this)}
+              />
             </p>
             <p>
-              现有收货地址：<span>{}</span>
+              现有收货地址：
+              <span>
+                {receiver &&
+                  `${receiver.name || ''} ${receiver.phone ||
+                    ''} ${receiver.address || ''} ${receiver.detail || ''}`}
+              </span>
             </p>
           </div>
         )}

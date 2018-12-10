@@ -28,3 +28,11 @@ export const changeProfile = (nickyname, gender) => {
 export const changePassword = (username, password, newPassword) => {
     return request({ url: URL.changePassword, method: 'PATCH', data: { username, password, newPassword } })
 }
+
+export const getReceiver = () => {
+    return request({ url: URL.getReceiver })
+}
+
+export const updateReceiver = (name, phone, address, detail) => {
+    return request({ url: URL.updateReceiver, method: 'PATCH', data: { name, phone, address, detail } })
+}

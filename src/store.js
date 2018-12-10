@@ -11,8 +11,9 @@ const initState = {
         isFetching: false,
         data: null
     },
-    user:null,
-    cart:null
+    user: null,
+    cart: null,
+    receiver: null
 }
 
 export const initStore = () => createStore(reducers, initState, applyMiddleware(ReduxThunk))

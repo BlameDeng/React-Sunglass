@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Login from '../components/user/Login'
-import { login,changeProfile, setCart } from '../actions'
+import { login,changeProfile, setCart,setReceiver,updateReceiver } from '../actions'
 import UserInfo from '../components/user/UserInfo'
 
 class UserContainer extends Component {
@@ -25,16 +25,19 @@ class UserContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.user
+  user: state.user,
+  receiver:state.receiver
 })
 
-const mapDispathToProps = dispath => ({
-  login: user => dispath(login(user)),
-  setCart: cart => dispath(setCart(cart)),
-  changeProfile:(nickyname,gender)=>dispath(changeProfile(nickyname,gender))
+const mapDispatchToProps = dispatch => ({
+  login: user => dispatch(login(user)),
+  setCart: cart => dispatch(setCart(cart)),
+  changeProfile:(nickyname,gender)=>dispatch(changeProfile(nickyname,gender)),
+  setReceiver:receiver=>dispatch(setReceiver(receiver)),
+  updateReceiver:receiver=>dispatch(updateReceiver(receiver))
 })
 
 export default connect(
   mapStateToProps,
-  mapDispathToProps
+  mapDispatchToProps
 )(UserContainer)
