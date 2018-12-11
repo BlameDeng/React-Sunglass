@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import * as api from '../../api'
-import { Input, message } from 'antd'
+// import { Input, message } from 'antd'
+const { Input, message }=window.antd
 
 class UserAccount extends Component {
   constructor(props) {

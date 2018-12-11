@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import * as api from '../api'
-import { Icon } from 'antd'
+// import { Icon } from 'antd'
+const { Icon }=window.antd
 
 class Sku extends Component {
   constructor(props) {

@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { Input, Icon } from 'antd'
 import * as api from '../../api'
+// import { Input, Icon } from 'antd'
+const { Input, Icon }=window.antd
 
 class Login extends Component {
   constructor(props) {

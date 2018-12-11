@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import * as api from '../../api'
-import { Spin } from 'antd'
+// import { Spin } from 'antd'
+const { Spin }=window.antd
 
 class NewArrival extends Component {
   constructor(props) {

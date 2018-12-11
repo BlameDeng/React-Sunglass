@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { Icon, message } from 'antd'
 import formatDate from '../../utils/formatDate'
 import * as api from '../../api'
+// import { Icon, message } from 'antd'
+const { Icon, message }=window.antd
 
 class OrderItem extends Component {
   constructor(props) {

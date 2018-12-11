@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Icon } from 'antd'
 import * as api from '../api'
 import { login, setCart, setOrders, setReceiver } from '../actions'
+// import { Icon } from 'antd'
+const { Icon }=window.antd
 
 class TopBar extends Component {
   constructor(props) {

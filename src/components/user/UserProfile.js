@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import * as api from '../../api'
-import { Input, Radio, message } from 'antd'
+// import { Input, Radio, message } from 'antd'
+const { Input, Radio, message }=window.antd
 const RadioGroup = Radio.Group
 
 class UserProfile extends Component {

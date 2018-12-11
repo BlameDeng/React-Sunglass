@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { Icon } from 'antd'
 import { smoothScroll } from '../utils/smoothScroll'
+// import { Icon } from 'antd'
+const { Icon }=window.antd
 
 class Sider extends Component {
   handleScrollToTop() {

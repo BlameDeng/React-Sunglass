@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import PayItem from './PayItem'
 import NewAddress from './NewAddress'
 import * as api from '../../api'
-import { Input, message } from 'antd'
+// import { Input, message } from 'antd'
+const { Input, message }=window.antd
 
 class Payment extends Component {
   constructor(props) {

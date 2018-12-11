@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import * as api from '../../api'
 import formatDate from '../../utils/formatDate'
-import { message } from 'antd'
+// import { message } from 'antd'
+const { message }=window.antd
 
 class Evaluation extends Component {
   constructor(props) {

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Carousel } from 'antd'
+// import { Carousel } from 'antd'
+const { Carousel }=window.antd
 
 class Slide extends Component {
   render() {
