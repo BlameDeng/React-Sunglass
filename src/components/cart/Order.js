@@ -83,7 +83,7 @@ class Order extends Component {
                   }
                   return false
                 })
-                .map(order => <OrderItem order={order} key={order.id} />)
+                .map(order => <OrderItem order={order} key={order.id} {...this.props}/>)
             : ''}
         </ul>
       </div>

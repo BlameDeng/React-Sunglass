@@ -1,9 +1,37 @@
 import React, { Component } from 'react'
+import { message } from 'antd'
+import formatDate from '../../utils/formatDate'
+import * as api from '../../api'
 
 class OrderItem extends Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {
+      isChanging: false
+    }
+  }
+
+  handleDelivery() {
+    if (this.state.isChanging) {
+      return
+    }
+    this.setState({
+      isChanging: true
+    })
+    api
+      .changeOrderStatus({ order: this.props.order, status: 'toEvaluate' })
+      .then(res => {
+        this.setState({
+          isChanging: false
+        })
+        this.props.setOrders(res.data.sort((prev, next) => next.id - prev.id))
+      })
+      .catch(err => {
+        message.error(err.msg, 2)
+        this.setState({
+          isChanging: false
+        })
+      })
   }
 
   render() {
@@ -12,7 +40,7 @@ class OrderItem extends Component {
     return (
       <li>
         <header className="order-info">
-          <span className="number">{2011 - 1 - 2}</span>
+          <span className="number">{formatDate(order.createdAt)}</span>
           <span>订单号：</span>
           <span className="number">{order.id}</span>
         </header>
@@ -39,7 +67,12 @@ class OrderItem extends Component {
         </div>
         <div className="action">
           {order.status === 'toConfirm' ? (
-            <div className="btn delivery">确认收货</div>
+            <div
+              className="btn delivery"
+              onClick={this.handleDelivery.bind(this)}
+            >
+              确认收货
+            </div>
           ) : (
             ''
           )}

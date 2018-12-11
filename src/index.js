@@ -24,6 +24,7 @@ import './style/Cart.scss'
 import './style/MyCart.scss'
 import './style/Payment.scss'
 import './style/Order.scss'
+import './style/Product.scss'
 import * as serviceWorker from './serviceWorker'
 import { initStore } from './store'
 

@@ -7,6 +7,7 @@ import Sider from './Sider'
 import Home from '../containers/Home'
 import User from '../containers/User'
 import Cart from '../containers/Cart'
+import Product from '../containers/Product'
 
 const HomeContainer = Loadable({
   loader: () => import('../containers/Home'),
@@ -23,6 +24,11 @@ const CartContainer = Loadable({
   loading: Cart
 })
 
+const ProductContainer = Loadable({
+  loader: () => import('../containers/Product'),
+  loading: Product
+})
+
 class App extends Component {
   render() {
     return (
@@ -32,6 +38,7 @@ class App extends Component {
           <Route exact path="/" component={HomeContainer} />
           <Route path="/user" component={UserContainer} />
           <Route path="/cart" component={CartContainer} />
+          <Route path="/product" component={ProductContainer} />
           <Sider />
           <Footer />
         </div>

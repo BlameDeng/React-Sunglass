@@ -56,3 +56,7 @@ export const pay = data => {
 export const getOrders = () => {
     return request({ url: URL.getOrder })
 }
+
+export const changeOrderStatus = data => {
+    return request({ url: URL.changeOrderStatus, method: 'PATCH', data })
+}
