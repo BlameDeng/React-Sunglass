@@ -52,3 +52,7 @@ export const removeFromCart = data => {
 export const pay = data => {
     return request({ url: URL.pay, method: 'POST', data })
 }
+
+export const getOrders = () => {
+    return request({ url: URL.getOrder })
+}

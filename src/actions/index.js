@@ -4,6 +4,7 @@ import { login, changeProfile } from './user'
 import { setCart } from './cart'
 import { setReceiver, updateReceiver } from './receiver'
 import { setRecommend } from './recommend'
+import { setOrders } from './orders'
 
 export {
     getNewArrival,
@@ -13,5 +14,6 @@ export {
     setCart,
     setReceiver,
     updateReceiver,
-    setRecommend
+    setRecommend,
+    setOrders
 }

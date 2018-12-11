@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Header from '../components/Header'
 import MyCart from '../components/cart/MyCart'
-import { setCart, setReceiver, updateReceiver } from '../actions'
+import { setCart, setReceiver, updateReceiver,setOrders } from '../actions'
 import Payment from '../components/cart/Payment'
+import Order from '../components/cart/Order'
 
 class Cart extends Component {
   constructor(props) {
@@ -28,7 +29,7 @@ class Cart extends Component {
         <Header />
         <div className="cart">
           <aside className="side-nav">
-            <h3>全部功能</h3>
+            <h3> 全部功能 </h3>
             <div
               onClick={() => this.handleChangeTab('cart')}
               className={tab !== 'order' ? 'active' : ''}
@@ -60,7 +61,7 @@ class Cart extends Component {
           ) : (
             ''
           )}
-          {tab === 'order' ? '' : ''}
+          {tab === 'order' ? <Order {...this.props} /> : ''}
         </div>
       </>
     )
@@ -69,13 +70,15 @@ class Cart extends Component {
 
 const mapStateToProps = state => ({
   cart: state.cart,
-  receiver: state.receiver
+  receiver: state.receiver,
+  orders:state.orders
 })
 
 const mapDispatchToProps = dispatch => ({
   setCart: cart => dispatch(setCart(cart)),
   setReceiver: receiver => dispatch(setReceiver(receiver)),
-  updateReceiver: receiver => dispatch(updateReceiver(receiver))
+  updateReceiver: receiver => dispatch(updateReceiver(receiver)),
+  setOrders:orders=>dispatch(setOrders(orders))
 })
 
 export default connect(

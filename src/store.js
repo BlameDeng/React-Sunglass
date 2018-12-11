@@ -14,7 +14,8 @@ const initState = {
     user: null,
     cart: null,
     receiver: null,
-    recommend: null
+    recommend: null,
+    orders:null
 }
 
 export const initStore = () => createStore(reducers, initState, applyMiddleware(ReduxThunk))
