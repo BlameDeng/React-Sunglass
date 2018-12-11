@@ -12,8 +12,6 @@ class Sku extends Component {
     }
   }
 
-  componentDidMount() {}
-
   handleMouseEnter(imgTab) {
     this.setState({ imgTab })
   }
@@ -67,6 +65,10 @@ class Sku extends Component {
     }
   }
 
+  handleOnDetail(id) {
+    this.props.history.push('/product/' + id)
+  }
+
   render() {
     const { product } = this.props
     return (
@@ -117,7 +119,11 @@ class Sku extends Component {
         </div>
         <div className="title">{product.title}</div>
         <div className="actions">
-          <div className="detail" role="button">
+          <div
+            className="detail"
+            role="button"
+            onClick={() => this.handleOnDetail(product.id)}
+          >
             <Icon type="file-search" />
             查看详情
           </div>

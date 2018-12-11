@@ -61,8 +61,6 @@ class HomeCategory extends Component {
   }
 
   render() {
-    console.log(this.props);
-    
     const products = this.state.products
     return (
       <div className="home-category" ref={this.el}>

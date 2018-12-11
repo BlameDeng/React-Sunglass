@@ -1,21 +1,55 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { setCart,setOrders } from '../actions'
+import * as api from '../api'
 import ProductInfo from '../components/product/ProductInfo'
 import Evaluation from '../components/product/Evaluation'
 
 class Product extends Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {
+      product: null
+    }
+  }
+
+  componentDidMount() {
+    const { id } = this.props.match.params
+    if (id) {
+      api
+        .getSingleProduct(parseInt(id))
+        .then(res => {
+          this.setState({
+            product: res.data
+          })
+        })
+        .catch(() => {
+          this.props.history.push('/')
+        })
+    }
   }
 
   render() {
     return (
       <main className="main-product">
-        <ProductInfo {...this.props} /> <Evaluation {...this.props} />
+        <ProductInfo {...this.props} product={this.state.product} />{' '}
+        <Evaluation {...this.props} product={this.state.product} />
       </main>
     )
   }
 }
 
-export default connect()(Product)
+const mapStateToProps = state => ({
+  cart: state.cart,
+  orders:state.orders
+})
+
+const mapDispatchToProps = dispatch => ({
+  setCart: cart => dispatch(setCart(cart)),
+  setOrders:orders=>dispatch(setOrders(orders))
+})
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Product)

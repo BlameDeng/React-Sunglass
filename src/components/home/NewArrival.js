@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
+import * as api from '../../api'
 import { Spin } from 'antd'
 
 class NewArrival extends Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {
+      isAdding: false
+    }
   }
 
   componentDidMount() {
@@ -12,12 +15,35 @@ class NewArrival extends Component {
   }
 
   handleClickProduct(id) {
-   this.props.history.push('/product/'+id)
+    this.props.history.push('/product/' + id)
   }
 
   handleClickAdd(e, id) {
     e.stopPropagation()
-    console.log(id)
+    if (this.state.isAdding) {
+      return
+    }
+    const products = this.props.cart.products || []
+    const item = products.find(item => item.id === id)
+    if (item) {
+      return
+    }
+    this.setState({
+      isAdding: true
+    })
+    api
+      .addToCart({ id, count: 1 })
+      .then(res => {
+        this.props.setCart(res.data)
+        this.setState({
+          isAdding: false
+        })
+      })
+      .catch(() => {
+        this.setState({
+          isAdding: false
+        })
+      })
   }
 
   render() {

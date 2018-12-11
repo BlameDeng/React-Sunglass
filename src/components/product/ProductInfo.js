@@ -1,32 +1,14 @@
 import React, { Component } from 'react'
 import * as api from '../../api'
+import { Icon } from 'antd'
 
 class ProductInfo extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      product: null,
-      tab: 'main'
-    }
-  }
-
-  static getDerivedStateFromProps(nextProps, prevState) {
-    return null
-  }
-
-  componentDidMount() {
-    const { id } = this.props.match.params
-    if (id) {
-      api
-        .getSingleProduct(parseInt(id))
-        .then(res => {
-          this.setState({
-            product: res.data
-          })
-        })
-        .catch(() => {
-          this.props.history.push('/')
-        })
+      tab: 'main',
+      count: 1,
+      isAdding: false
     }
   }
 
@@ -34,43 +16,105 @@ class ProductInfo extends Component {
     tab !== this.state.tab && this.setState({ tab })
   }
 
+  handleSize(node) {
+    if (node) {
+      const { width } = node.getBoundingClientRect()
+      node.style.height = width + 'px'
+    }
+  }
+
+  handleCountChange(e) {
+    const count = parseInt(e.target.value)
+    if (count && count > 0) {
+      this.setState({
+        count
+      })
+    }
+  }
+
+  handleBtn(n) {
+    if (this.state.count + n > 0) {
+      this.setState({
+        count: this.state.count + n
+      })
+    }
+  }
+
+  handleAddToCart(link) {
+    if (this.state.isAdding) {
+      return
+    }
+    const { count } = this.state
+    const { id } = this.props.product
+    const { products } = this.props.cart
+    const item = products.find(item => item.id === id)
+    if (item) {
+      if (count > item.count) {
+        this.setState({ isAdding: true })
+        api
+          .addToCart({ id, count, type: 'changeCount' })
+          .then(res => {
+            this.props.setCart(res.data)
+            this.setState({ isAdding: false })
+            if (link) {
+              this.props.history.push('/cart')
+            }
+          })
+          .catch(() => {
+            this.setState({ isAdding: false })
+          })
+      } else {
+        if (link) {
+          this.props.history.push('/cart')
+        }
+        return
+      }
+    } else {
+      this.setState({ isAdding: true })
+      api
+        .addToCart({ id, count })
+        .then(res => {
+          this.props.setCart(res.data)
+          this.setState({ isAdding: false })
+          if (link) {
+            this.props.history.push('/cart')
+          }
+        })
+        .catch(() => {
+          this.setState({ isAdding: false })
+        })
+    }
+  }
+
+  handleBuy() {
+    this.handleAddToCart(true)
+  }
+
   render() {
-    const { product, tab } = this.state
+    const { product } = this.props
+    const { tab, count } = this.state
     return (
       <>
         <div className="tags-bar">
-          <a href="/home.html" target="_blank" className="tag">
-            首页
-          </a>
-          <x-icon name="next" className="icon" />
-          <a
-            href="/home.html#/category?tab=all"
-            target="_blank"
-            className="tag"
-          >
-            全部
-          </a>
-          <x-icon name="next" className="icon" />
-          <a
-            href="/home.html#/category?tab=male"
-            target="_blank"
-            className="tag"
-          >
-            男士
-          </a>
-          <a
-            href="/home.html#/category?tab=female"
-            target="_blank"
-            className="tag"
-          >
-            女士
-          </a>
-          <x-icon name="next" className="icon" />
-          <a className="tag">{}</a>
+          <div className="tag">首页</div>
+          <Icon type="right" />
+          <div className="tag">全部</div>
+          <Icon type="right" />
+          {product ? (
+            product.category === 'male' ? (
+              <div className="tag">男士</div>
+            ) : (
+              <div className="tag">女士</div>
+            )
+          ) : (
+            ''
+          )}
+          <Icon type="right" />
+          <div className="tag">{product && product.name}</div>
         </div>
         <div className="content">
           <div className="imgs">
-            <div className="show-img">
+            <div className="show-img" ref={node => this.handleSize(node)}>
               {tab === 'main' ? (
                 <img src={product && product.main_image} alt="main" />
               ) : (
@@ -132,36 +176,6 @@ class ProductInfo extends Component {
                 ) : (
                   ''
                 )}
-                {/* {product && product.discount < product.price ? (
-                  <>
-                    <div className="origin-price">
-                      <span className="label w3">参考价</span>
-                      <span>￥{product && product.price.toFixed(2)}</span>
-                    </div>
-                    <div className="price">
-                      <span className="label w3">优惠价</span>
-                      <span>￥</span>
-                      <span className="number">
-                        {product && product.discount}
-                      </span>
-                      <span>.00</span>
-                    </div>
-                  </>
-                ) : (
-                  ''
-                )}
-                {product && product.discount === product.price ? (
-                  <div className="price">
-                    <span className="label w2">价格</span>
-                    <span>￥</span>
-                    <span className="number">
-                      {product && product.discount}
-                    </span>
-                    <span>.00</span>
-                  </div>
-                ) : (
-                  ''
-                )} */}
                 <div className="ems">
                   <span className="label w2">快递</span>
                   <span>EMS</span>
@@ -171,9 +185,20 @@ class ProductInfo extends Component {
               </div>
               <div className="count">
                 <div className="label w2">数量</div>
-                <span className="minus">-</span>
-                <input type="text" />
-                <span className="plus">+</span>
+                <span
+                  className={`minus ${count === 1 ? 'disabled' : ''}`}
+                  onClick={() => this.handleBtn(-1)}
+                >
+                  -
+                </span>
+                <input
+                  type="text"
+                  value={count}
+                  onChange={this.handleCountChange.bind(this)}
+                />
+                <span className="plus" onClick={() => this.handleBtn(1)}>
+                  +
+                </span>
                 <span className="remain">库存充足</span>
               </div>
               <div className="service">
@@ -183,10 +208,18 @@ class ProductInfo extends Component {
               </div>
             </div>
             <div className="actions">
-              <div className="pay" role="button">
+              <div
+                className="pay"
+                role="button"
+                onClick={this.handleBuy.bind(this)}
+              >
                 立即购买
               </div>
-              <div className="add-to-cart" role="button">
+              <div
+                className="add-to-cart"
+                role="button"
+                onClick={() => this.handleAddToCart}
+              >
                 <x-icon name="cart" className="icon" />
                 加入购物车
               </div>
