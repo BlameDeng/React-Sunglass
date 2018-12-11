@@ -82,7 +82,7 @@ class CartItem extends Component {
   }
 
   render() {
-    const { product, selectedIds } = this.props
+    const { product, selectedIds, history } = this.props
     return (
       <li>
         <div className="label">
@@ -96,8 +96,14 @@ class CartItem extends Component {
           />
         </div>
         <div className="info">
-          <img src={product.main_image} alt="main" />
-          <span>{product.title}</span>
+          <img
+            src={product.main_image}
+            alt="main"
+            onClick={() => history.push('/product/' + product.id)}
+          />
+          <span onClick={() => history.push('/product/' + product.id)}>
+            {product.title}
+          </span>
         </div>
         <div className="price">
           <span>￥{product.discount.toFixed(2)}</span>

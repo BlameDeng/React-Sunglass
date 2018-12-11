@@ -61,10 +61,18 @@ export const changeOrderStatus = data => {
     return request({ url: URL.changeOrderStatus, method: 'PATCH', data })
 }
 
+export const deleteOrder = id => {
+    return request({ url: URL.deleteOrder, method: 'DELETE', data: { id } })
+}
+
 export const getSingleProduct = id => {
     return request({ url: URL.singleProduct, data: { id } })
 }
 
 export const getEvaluation = id => {
     return request({ url: URL.getEvaluation, data: { id } })
+}
+
+export const createEvaluation = data => {
+    return request({ url: URL.createEvaluation, method: 'POST', data })
 }

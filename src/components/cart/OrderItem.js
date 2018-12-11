@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { message } from 'antd'
+import { Icon, message } from 'antd'
 import formatDate from '../../utils/formatDate'
 import * as api from '../../api'
 
@@ -34,8 +34,31 @@ class OrderItem extends Component {
       })
   }
 
+  handleDelete(id) {
+    if (this.state.isChanging) {
+      return
+    }
+    this.setState({
+      isChanging: true
+    })
+    api
+      .deleteOrder(id)
+      .then(res => {
+        this.setState({
+          isChanging: false
+        })
+        this.props.setOrders(res.data.sort((prev, next) => next.id - prev.id))
+      })
+      .catch(err => {
+        message.error(err.msg, 2)
+        this.setState({
+          isChanging: false
+        })
+      })
+  }
+
   render() {
-    const { order } = this.props
+    const { order, history } = this.props
     const { product } = order
     return (
       <li>
@@ -45,8 +68,14 @@ class OrderItem extends Component {
           <span className="number">{order.id}</span>
         </header>
         <div className="info">
-          <img src={product.main_image} alt="main" />
-          <span>{product.title}</span>
+          <img
+            src={product.main_image}
+            alt="main"
+            onClick={() => history.push('/product/' + product.id)}
+          />
+          <span onClick={() => history.push('/product/' + product.id)}>
+            {product.title}
+          </span>
         </div>
         <div className="price">
           <span>￥{product.discount.toFixed(2)}</span>
@@ -77,13 +106,18 @@ class OrderItem extends Component {
             ''
           )}
           {order.status === 'toEvaluate' ? (
-            <div className="btn">评价商品</div>
+            <div
+              className="btn"
+              onClick={() => history.push('/product/' + product.id)}
+            >
+              评价商品
+            </div>
           ) : (
             ''
           )}
           {order.status === 'done' ? (
-            <div className="btn">
-              <x-icon name="delete" className="icon" />
+            <div className="btn" onClick={() => this.handleDelete(order.id)}>
+              <Icon type="delete" style={{ marginRight: '3px' }} />
               删除订单
             </div>
           ) : (

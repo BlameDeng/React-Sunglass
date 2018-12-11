@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import * as api from '../../api'
 import formatDate from '../../utils/formatDate'
+import { message } from 'antd'
 
 class Evaluation extends Component {
   constructor(props) {
@@ -8,28 +9,33 @@ class Evaluation extends Component {
     this.state = {
       evaluation: null,
       tab: 'detail',
-      content: ''
+      content: '',
+      unEvaluated: null,
+      isFetching: false
     }
   }
 
   componentDidMount() {
-    console.log(1);
-    
     const { orders } = this.props
-    const  id  = parseInt(this.props.match.params.id)
+    const id = parseInt(this.props.match.params.id)
     //获取用户订单
-    !orders &&
+    if (orders) {
+      const unEvaluated = this.canEvaluate(id)
+      this.setState({
+        unEvaluated
+      })
+    } else {
       api
         .getOrders()
         .then(res => {
           this.props.setOrders(res.data)
-          console.log(this.canEvaluate(id));
-          
+          const unEvaluated = this.canEvaluate(id)
+          this.setState({
+            unEvaluated
+          })
         })
         .catch(() => {})
-        if(orders){
-          console.log(this.canEvaluate(id));
-        }
+    }
     //获取商品评论
     api
       .getEvaluation(id)
@@ -44,7 +50,7 @@ class Evaluation extends Component {
   canEvaluate(id) {
     const { orders } = this.props
     return orders.find(
-      order => order.status === 'toEvaluate' &&order.product.id===id
+      order => order.status === 'toEvaluate' && order.product.id === id
     )
   }
 
@@ -60,8 +66,49 @@ class Evaluation extends Component {
     })
   }
 
+  handleSubmit() {
+    const { content, unEvaluated, isFetching } = this.state
+    if (isFetching) {
+      return
+    }
+    const { user, setOrders } = this.props
+    if (!content) {
+      message.info('评论内容不能为空', 2)
+      return
+    }
+    this.setState({
+      isFetching: true
+    })
+    api
+      .createEvaluation({
+        pid: unEvaluated.product.id,
+        oid: unEvaluated.id,
+        username: user.username,
+        nickyname: user.nickyname || '',
+        content
+      })
+      .then(res => {
+        this.setState({
+          isFetching: false,
+          evaluation: res.data.sort((prev, next) => next.id - prev.id),
+          unEvaluated: null
+        })
+      })
+      .then(() => {
+        return api.getOrders()
+      })
+      .then(res => {
+        setOrders(res.data)
+      })
+      .catch(() => {
+        this.setState({
+          isFetching: false
+        })
+      })
+  }
+
   render() {
-    const { evaluation, tab, content } = this.state
+    const { evaluation, tab, content, unEvaluated } = this.state
     const { product } = this.props
     return (
       <div className="detail-container">
@@ -95,23 +142,31 @@ class Evaluation extends Component {
             </div>
           ) : (
             <div className="evaluation">
-              <div className="add-evaluation">
-                <h2>其他买家，需要你的建议哦！</h2>
-                <div className="textarea-wrapper">
-                  <textarea
-                    value={content}
-                    onChange={this.handleTextarea.bind(this)}
-                  />
-                  <span className="tips">
-                    <span>{content.length}</span> / 300
-                  </span>
-                </div>
-                <div className="action">
-                  <div className="btn" role="button">
-                    提交评价
+              {unEvaluated ? (
+                <div className="add-evaluation">
+                  <h2>其他买家，需要你的建议哦！</h2>
+                  <div className="textarea-wrapper">
+                    <textarea
+                      value={content}
+                      onChange={this.handleTextarea.bind(this)}
+                    />
+                    <span className="tips">
+                      <span>{content.length}</span> / 300
+                    </span>
+                  </div>
+                  <div className="action">
+                    <div
+                      className="btn"
+                      role="button"
+                      onClick={this.handleSubmit.bind(this)}
+                    >
+                      提交评价
+                    </div>
                   </div>
                 </div>
-              </div>
+              ) : (
+                ''
+              )}
               <ul className="content">
                 {evaluation && evaluation.length ? (
                   evaluation.map(item => (

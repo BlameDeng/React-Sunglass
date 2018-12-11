@@ -19,9 +19,8 @@
  export default function getNewArrival() {
      return dispatch => {
          dispatch(requestNewArrival())
-         api.getNewArrival()
+         return api.getNewArrival()
              .then(res => {
-                 console.log(res)
                  dispatch(receiveNewArrival(res.data))
              })
      }

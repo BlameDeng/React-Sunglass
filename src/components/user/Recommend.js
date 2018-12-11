@@ -25,7 +25,7 @@ class Recommend extends Component {
         <div className="recommend">
           {recommend && recommend.length
             ? recommend.map(product => (
-                <Sku product={product} key={product.id} />
+                <Sku product={product} key={product.id} {...this.props} />
               ))
             : ''}
         </div>

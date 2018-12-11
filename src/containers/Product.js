@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { setCart,setOrders } from '../actions'
+import { setCart, setOrders } from '../actions'
 import * as api from '../api'
 import ProductInfo from '../components/product/ProductInfo'
 import Evaluation from '../components/product/Evaluation'
@@ -32,7 +32,7 @@ class Product extends Component {
   render() {
     return (
       <main className="main-product">
-        <ProductInfo {...this.props} product={this.state.product} />{' '}
+        <ProductInfo {...this.props} product={this.state.product} />
         <Evaluation {...this.props} product={this.state.product} />
       </main>
     )
@@ -41,12 +41,13 @@ class Product extends Component {
 
 const mapStateToProps = state => ({
   cart: state.cart,
-  orders:state.orders
+  orders: state.orders,
+  user: state.user
 })
 
 const mapDispatchToProps = dispatch => ({
   setCart: cart => dispatch(setCart(cart)),
-  setOrders:orders=>dispatch(setOrders(orders))
+  setOrders: orders => dispatch(setOrders(orders))
 })
 
 export default connect(

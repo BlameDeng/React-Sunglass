@@ -91,20 +91,20 @@ class ProductInfo extends Component {
   }
 
   render() {
-    const { product } = this.props
+    const { product,history } = this.props
     const { tab, count } = this.state
     return (
       <>
         <div className="tags-bar">
-          <div className="tag">首页</div>
+          <div className="tag" onClick={()=>history.push('/')}>首页</div>
           <Icon type="right" />
-          <div className="tag">全部</div>
+          <div className="tag" onClick={()=>history.push('/')}>全部</div>
           <Icon type="right" />
           {product ? (
             product.category === 'male' ? (
-              <div className="tag">男士</div>
+              <div className="tag" onClick={()=>history.push('/')}>男士</div>
             ) : (
-              <div className="tag">女士</div>
+              <div className="tag" onClick={()=>history.push('/')}>女士</div>
             )
           ) : (
             ''
@@ -203,7 +203,6 @@ class ProductInfo extends Component {
               </div>
               <div className="service">
                 <div className="label w2">服务</div>
-                <x-icon name="return" className="icon" />
                 <span>七天无理由退货</span>
               </div>
             </div>
@@ -220,7 +219,6 @@ class ProductInfo extends Component {
                 role="button"
                 onClick={() => this.handleAddToCart}
               >
-                <x-icon name="cart" className="icon" />
                 加入购物车
               </div>
             </div>

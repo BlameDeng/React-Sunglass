@@ -58,8 +58,6 @@ class Login extends Component {
     api
       .login(username, password)
       .then(res => {
-        console.log(res);
-        
         if (res.token) {
           localStorage.setItem('user', res.token)
         }

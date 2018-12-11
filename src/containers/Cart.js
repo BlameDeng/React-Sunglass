@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Header from '../components/Header'
 import MyCart from '../components/cart/MyCart'
-import { setCart, setReceiver, updateReceiver,setOrders } from '../actions'
+import { setCart, setReceiver, updateReceiver, setOrders } from '../actions'
 import Payment from '../components/cart/Payment'
 import Order from '../components/cart/Order'
 
@@ -71,14 +71,14 @@ class Cart extends Component {
 const mapStateToProps = state => ({
   cart: state.cart,
   receiver: state.receiver,
-  orders:state.orders
+  orders: state.orders
 })
 
 const mapDispatchToProps = dispatch => ({
   setCart: cart => dispatch(setCart(cart)),
   setReceiver: receiver => dispatch(setReceiver(receiver)),
   updateReceiver: receiver => dispatch(updateReceiver(receiver)),
-  setOrders:orders=>dispatch(setOrders(orders))
+  setOrders: orders => dispatch(setOrders(orders))
 })
 
 export default connect(

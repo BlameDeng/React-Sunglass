@@ -66,8 +66,7 @@ class Payment extends Component {
     })
     api
       .pay({ products, password })
-      .then(res => {
-        console.log(res)
+      .then(() => {
         message.success('订单支付成功，将尽快为您发货', 2)
         this.setState({
           isPaying: false,

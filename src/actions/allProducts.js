@@ -21,7 +21,6 @@
          dispatch(requestAllProducts())
          api.getAllProducts()
              .then(res => {
-                 console.log(res)
                  dispatch(receiveAllProducts(res.data))
              })
      }
