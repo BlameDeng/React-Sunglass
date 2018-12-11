@@ -73,6 +73,7 @@ class Payment extends Component {
           checkPswVisible: false,
           password: ''
         })
+        this.props.handleChangeTab('order')
       })
       .catch(err => {
         message.error(err.msg, 2)

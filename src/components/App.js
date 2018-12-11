@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { HashRouter as Router, Route } from 'react-router-dom'
-import TopBar from './TopBar'
 import Footer from './Footer'
 import Sider from './Sider'
 import Home from '../containers/Home'
@@ -13,11 +12,11 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-          <TopBar />
           <Route exact path="/" component={Home} />
           <Route path="/user" component={User} />
           <Route path="/cart" component={Cart} />
-          <Route path="/product/:id" component={Product} /> <Sider />
+          <Route path="/product/:id" component={Product} />
+           <Sider />
           <Footer />
         </div>
       </Router>

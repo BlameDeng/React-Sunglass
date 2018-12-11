@@ -217,7 +217,7 @@ class ProductInfo extends Component {
               <div
                 className="add-to-cart"
                 role="button"
-                onClick={() => this.handleAddToCart}
+                onClick={() => this.handleAddToCart()}
               >
                 加入购物车
               </div>

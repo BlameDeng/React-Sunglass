@@ -5,6 +5,7 @@ import MyCart from '../components/cart/MyCart'
 import { setCart, setReceiver, updateReceiver, setOrders } from '../actions'
 import Payment from '../components/cart/Payment'
 import Order from '../components/cart/Order'
+import TopBar from '../components/TopBar'
 
 class Cart extends Component {
   constructor(props) {
@@ -13,6 +14,13 @@ class Cart extends Component {
       tab: 'cart',
       selectedIds: null,
       total: 0
+    }
+  }
+
+  componentDidMount() {
+    const { user, history } = this.props
+    if (!user) {
+      history.push('/user')
     }
   }
 
@@ -26,7 +34,7 @@ class Cart extends Component {
     const { tab, selectedIds, total } = this.state
     return (
       <>
-        <Header />
+        <TopBar {...this.props}> </TopBar> <Header />
         <div className="cart">
           <aside className="side-nav">
             <h3> 全部功能 </h3>
@@ -71,7 +79,8 @@ class Cart extends Component {
 const mapStateToProps = state => ({
   cart: state.cart,
   receiver: state.receiver,
-  orders: state.orders
+  orders: state.orders,
+  user: state.user
 })
 
 const mapDispatchToProps = dispatch => ({

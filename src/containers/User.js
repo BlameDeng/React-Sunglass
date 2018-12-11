@@ -10,6 +10,7 @@ import {
   setRecommend
 } from '../actions'
 import UserInfo from '../components/user/UserInfo'
+import TopBar from '../components/TopBar'
 
 class User extends Component {
   constructor(props) {
@@ -21,6 +22,7 @@ class User extends Component {
     const user = this.props.user
     return (
       <>
+        <TopBar {...this.props}> </TopBar>
         {user ? (
           <UserInfo {...this.props}> </UserInfo>
         ) : (
@@ -34,7 +36,7 @@ class User extends Component {
 const mapStateToProps = state => ({
   user: state.user,
   receiver: state.receiver,
-  recommend:state.recommend
+  recommend: state.recommend
 })
 
 const mapDispatchToProps = dispatch => ({

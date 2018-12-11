@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import {Link} from 'react-router-dom'
 import { Icon } from 'antd'
 
 class Footer extends Component {
@@ -7,9 +8,9 @@ class Footer extends Component {
       <footer className="footer">
         <div className="footer-inner">
           <div className="link">
-            <div className="logo">
+            <Link to="/" className="logo">
               Sunglass<sup>&reg;</sup>
-            </div>
+            </Link>
             <div className="icons">
               <a
                 href="https://github.com/BlameDeng"

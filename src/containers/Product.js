@@ -4,6 +4,7 @@ import { setCart, setOrders } from '../actions'
 import * as api from '../api'
 import ProductInfo from '../components/product/ProductInfo'
 import Evaluation from '../components/product/Evaluation'
+import TopBar from '../components/TopBar'
 
 class Product extends Component {
   constructor(props) {
@@ -31,10 +32,13 @@ class Product extends Component {
 
   render() {
     return (
-      <main className="main-product">
-        <ProductInfo {...this.props} product={this.state.product} />
-        <Evaluation {...this.props} product={this.state.product} />
-      </main>
+      <>
+        <TopBar {...this.props}> </TopBar>
+        <main className="main-product">
+          <ProductInfo {...this.props} product={this.state.product} />
+          <Evaluation {...this.props} product={this.state.product} />
+        </main>
+      </>
     )
   }
 }

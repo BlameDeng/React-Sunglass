@@ -4,6 +4,7 @@ import { getNewArrival, getAllProducts,setCart } from '../actions'
 import HomeNavBar from '../components/home/HomeNavBar'
 import HomeIndex from '../components/home/HomeIndex'
 import HomeCategory from '../components/home/HomeCategory'
+import TopBar from '../components/TopBar'
 
 class Home extends Component {
   constructor(props) {
@@ -19,6 +20,8 @@ class Home extends Component {
 
   render() {
     return (
+      <>
+      <TopBar {...this.props}></TopBar>
       <div className="home">
         <HomeNavBar
           category={this.state.category}
@@ -30,6 +33,7 @@ class Home extends Component {
           <HomeCategory {...this.props} category={this.state.category} />
         )}
       </div>
+      </>
     )
   }
 }

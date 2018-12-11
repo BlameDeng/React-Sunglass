@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import { Input, Icon } from 'antd'
 import * as api from '../../api'
 
@@ -77,10 +78,15 @@ class Login extends Component {
     const errMsg = this.state.errMsg
     return (
       <div className="user-login">
+        <div className="link">
+          <Link to="/" className="logo">
+            Sunglass <sup> &reg; </sup>
+          </Link>
+        </div>
         <div className="login-wrapper">
           <div className="login">
             <div className="title">
-              <h2>账户登录</h2>
+              <h2> 账户登录 </h2>
             </div>
             {errMsg ? (
               <div className="error">
@@ -106,7 +112,7 @@ class Login extends Component {
             </div>
             <div className="password">
               <Input
-              type="password"
+                type="password"
                 placeholder="请输入密码"
                 prefix={
                   <Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />
@@ -117,9 +123,9 @@ class Login extends Component {
               />
             </div>
             <div className="submit">
-              <button onClick={this.handleSubmit.bind(this)}>登录</button>
+              <button onClick={this.handleSubmit.bind(this)}> 登录 </button>
             </div>
-            <div className="tips">如果账户未注册，将自动为您注册</div>
+            <div className="tips"> 如果账户未注册， 将自动为您注册 </div>
           </div>
         </div>
       </div>

@@ -16,8 +16,20 @@ class Evaluation extends Component {
   }
 
   componentDidMount() {
-    const { orders } = this.props
+    const { orders, user } = this.props
     const id = parseInt(this.props.match.params.id)
+    //获取商品评论
+    api
+      .getEvaluation(id)
+      .then(res => {
+        this.setState({
+          evaluation: res.data.sort((prev, next) => next.id - prev.id)
+        })
+      })
+      .catch(() => {})
+    if (!user) {
+      return
+    }
     //获取用户订单
     if (orders) {
       const unEvaluated = this.canEvaluate(id)
@@ -36,15 +48,6 @@ class Evaluation extends Component {
         })
         .catch(() => {})
     }
-    //获取商品评论
-    api
-      .getEvaluation(id)
-      .then(res => {
-        this.setState({
-          evaluation: res.data.sort((prev, next) => next.id - prev.id)
-        })
-      })
-      .catch(() => {})
   }
 
   canEvaluate(id) {

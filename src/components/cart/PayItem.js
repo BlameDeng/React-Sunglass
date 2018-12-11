@@ -16,10 +16,10 @@ class PayItem extends Component {
         </div>
         <div className="price">
           <span className="text">单价</span>
-          <span>￥{product.discount}</span>
+          <span>￥{product.discount.toFixed(2)}</span>
           {product.discount < product.price ? (
             <span className="origin">
-              <span className="text">原价</span>￥{product.price}
+              <span className="text">原价</span>￥{product.price.toFixed(2)}
             </span>
           ) : (
             ''
@@ -30,7 +30,7 @@ class PayItem extends Component {
           {product.count}
         </div>
         <div className="total">
-          <span className="text">小计</span>￥{product.discount*product.count}
+          <span className="text">小计</span>￥{(product.discount*product.count).toFixed(2)}
         </div>
       </li>
     )
