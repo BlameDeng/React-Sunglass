@@ -60,3 +60,7 @@ export const getOrders = () => {
 export const changeOrderStatus = data => {
     return request({ url: URL.changeOrderStatus, method: 'PATCH', data })
 }
+
+export const getSingleProduct = id => {
+    return request({ url: URL.singleProduct, data: { id } })
+}

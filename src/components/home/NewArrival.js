@@ -11,6 +11,15 @@ class NewArrival extends Component {
     !this.props.newArrival.data && this.props.getNewArrival()
   }
 
+  handleClickProduct(id) {
+   this.props.history.push('/product/'+id)
+  }
+
+  handleClickAdd(e, id) {
+    e.stopPropagation()
+    console.log(id)
+  }
+
   render() {
     const { isFetching, data } = this.props.newArrival
     return (
@@ -26,11 +35,20 @@ class NewArrival extends Component {
           )}
           {data && data.length
             ? data.map(product => (
-                <div className="product" key={product.id}>
+                <div
+                  className="product"
+                  key={product.id}
+                  onClick={() => this.handleClickProduct(product.id)}
+                >
                   <h2 className="name"> {product.name} </h2>
                   <img src={product.sub_image} alt="product" />
                   <span className="price"> ￥{product.discount} </span>
-                  <div className="add"> 添加到购物车 </div>
+                  <div
+                    className="add"
+                    onClick={e => this.handleClickAdd(e, product.id)}
+                  >
+                    添加到购物车
+                  </div>
                 </div>
               ))
             : ''}
