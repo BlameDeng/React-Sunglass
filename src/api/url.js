@@ -1,4 +1,4 @@
-const prefix=''
+const prefix='http://www.denglin.xyz'
 const URL = {
     newArrival: `${prefix}/product/newarrival`,
     allProducts: `${prefix}/product/allproducts`,
